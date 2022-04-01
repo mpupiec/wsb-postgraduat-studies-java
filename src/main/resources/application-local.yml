@@ -5,6 +5,8 @@ spring:
       path: '/console'
   datasource:
     url: 'jdbc:h2:file:./flights-db;DB_CLOSE_ON_EXIT=FALSE;AUTO_SERVER=TRUE'
+  flyway:
+    baselineOnMigrate: true
   jpa:
     hibernate:
-      ddl-auto: update
+     ddl-auto: validate

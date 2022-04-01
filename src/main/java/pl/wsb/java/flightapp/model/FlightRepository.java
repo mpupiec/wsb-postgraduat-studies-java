@@ -16,7 +16,7 @@ public interface FlightRepository {
 
     boolean existsById(Integer id);
 
-    List<Flight> findByDone(@Param("state") boolean done);
+    List<Flight> findByDone(boolean done);
 
     Flight save(Flight entity);
 }
