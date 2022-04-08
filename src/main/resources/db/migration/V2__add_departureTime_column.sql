@@ -1,0 +1,1 @@
+alter table flights add column departure_time datetime null;

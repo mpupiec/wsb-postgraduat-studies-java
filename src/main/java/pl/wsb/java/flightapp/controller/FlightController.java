@@ -9,6 +9,7 @@ import pl.wsb.java.flightapp.model.Flight;
 import pl.wsb.java.flightapp.model.FlightRepository;
 
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
@@ -52,6 +53,16 @@ public class FlightController {
         }
         toUpdate.setId(id);
         repository.save(toUpdate);
+        return ResponseEntity.noContent().build();
+    }
+    @Transactional
+    @PatchMapping("/flights/{id}")
+    public ResponseEntity<?> toggleFlight(@PathVariable("id") int id){
+        if(!repository.existsById(id)){
+            return ResponseEntity.notFound().build();
+        }
+        repository.findById(id)
+                .ifPresent(task->task.setDone(!task.isDone()));
         return ResponseEntity.noContent().build();
     }
 

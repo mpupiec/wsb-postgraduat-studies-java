@@ -3,6 +3,7 @@ package pl.wsb.java.flightapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "flights")
@@ -13,6 +14,7 @@ public class Flight {
     @NotBlank (message = "Flight description must be not empty")
     private String description;
     private boolean done;
+    private LocalDateTime departureTime;
 
     public Flight() {
     }
@@ -37,7 +39,11 @@ public class Flight {
         return done;
     }
 
-    void setDone(boolean done) {
+    public void setDone(boolean done) {
         this.done = done;
     }
+
+    public LocalDateTime getDepartureTime() {return departureTime;}
+
+    public void setDepartureTime(LocalDateTime departureTime) {this.departureTime = departureTime;}
 }
