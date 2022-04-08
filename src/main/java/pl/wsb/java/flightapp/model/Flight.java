@@ -15,6 +15,10 @@ public class Flight {
     private String description;
     private boolean done;
     private LocalDateTime departureTime;
+    @NotBlank (message = "Airport description must be not empty")
+    private String departureAirport;
+    @NotBlank (message = "Airport description must be not empty")
+    private String arrivalAirport;
 
     public Flight() {
     }
@@ -46,4 +50,12 @@ public class Flight {
     public LocalDateTime getDepartureTime() {return departureTime;}
 
     public void setDepartureTime(LocalDateTime departureTime) {this.departureTime = departureTime;}
+
+    public String getDepartureAirport() {return departureAirport;}
+
+    public void setDepartureAirport(String departureAirport) {this.departureAirport = departureAirport;}
+
+    public String getArrivalAirport() {return arrivalAirport;}
+
+    public void setArrivalAirport(String arrivalAirport) {this.arrivalAirport = arrivalAirport;}
 }

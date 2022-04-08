@@ -1,0 +1,1 @@
+alter table flights add column departure_airport varchar(300) null;
