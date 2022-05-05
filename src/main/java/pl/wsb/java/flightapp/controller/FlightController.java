@@ -51,8 +51,11 @@ public class FlightController {
         if(!repository.existsById(id)){
             return ResponseEntity.notFound().build();
         }
-        toUpdate.setId(id);
-        repository.save(toUpdate);
+        repository.findById(id)
+                .ifPresent(flight->{
+                    flight.updateFrom(toUpdate);
+                    repository.save(flight);
+                });
         return ResponseEntity.noContent().build();
     }
     @Transactional
@@ -62,7 +65,7 @@ public class FlightController {
             return ResponseEntity.notFound().build();
         }
         repository.findById(id)
-                .ifPresent(task->task.setDone(!task.isDone()));
+                .ifPresent(flight->flight.setDone(!flight.isDone()));
         return ResponseEntity.noContent().build();
     }
 

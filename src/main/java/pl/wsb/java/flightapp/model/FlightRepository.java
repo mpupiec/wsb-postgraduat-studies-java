@@ -16,6 +16,8 @@ public interface FlightRepository {
 
     boolean existsById(Integer id);
 
+    boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
+
     List<Flight> findByDone(boolean done);
 
     Flight save(Flight entity);

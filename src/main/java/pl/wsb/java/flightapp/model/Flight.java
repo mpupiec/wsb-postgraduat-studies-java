@@ -19,32 +19,27 @@ public class Flight {
     private String departureAirport;
     @NotBlank (message = "Airport description must be not empty")
     private String arrivalAirport;
+    @Embedded
+    private Audit audit = new Audit();
+    @ManyToOne
+    @JoinColumn(name ="flight_groups_id")
+    private FlightGroup group;
+
 
     public Flight() {
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() {return id;}
 
-    public void setId(int id) {
-        this.id = id;
-    }
+    void setId(int id) {this.id = id;}
 
-    public String getDescription() {
-        return description;
-    }
+    public String getDescription() {return description;}
 
-    void setDescription(String description) {
-        this.description = description;
-    }
+    void setDescription(String description) {this.description = description;}
 
-    public boolean isDone() {
-        return done;
-    }
+    public boolean isDone() {return done;}
 
-    public void setDone(boolean done) {
-        this.done = done;
+    public void setDone(boolean done) {this.done = done;
     }
 
     public LocalDateTime getDepartureTime() {return departureTime;}
@@ -58,4 +53,20 @@ public class Flight {
     public String getArrivalAirport() {return arrivalAirport;}
 
     public void setArrivalAirport(String arrivalAirport) {this.arrivalAirport = arrivalAirport;}
+
+    public FlightGroup getGroup() {return group;}
+
+    public void setGroup(FlightGroup group) {this.group = group;}
+
+    public void updateFrom(final Flight source){
+        description = source.description;
+        done = source.done;
+        departureTime = source.departureTime;
+        departureAirport = source.departureAirport;
+        arrivalAirport = source.arrivalAirport;
+        group = source.group;
+
+    }
+
+
 }
