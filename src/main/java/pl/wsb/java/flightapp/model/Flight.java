@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 @Table(name = "flights")
 public class Flight {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotBlank (message = "Flight description must be not empty")
     private String description;
@@ -26,8 +26,15 @@ public class Flight {
     private FlightGroup group;
 
 
-    public Flight() {
-    }
+    Flight() {}
+        public Flight(String description, LocalDateTime departureTime,
+        String departureAirport,String arrivalAirport){
+            this.description = description;
+            this.departureTime=departureTime;
+            this.departureAirport=departureAirport;
+            this.arrivalAirport =arrivalAirport;
+        }
+
 
     public int getId() {return id;}
 

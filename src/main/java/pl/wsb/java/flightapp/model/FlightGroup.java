@@ -10,13 +10,16 @@ import java.util.Set;
 @Table(name = "flight_groups")
 public class FlightGroup {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @NotBlank (message = "Flight group's description must be not empty")
     private String description;
     private boolean done;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "group" )
     private Set<Flight> flights;
+    @ManyToOne
+    @JoinColumn(name ="user_id")
+    private User user;
 
     public FlightGroup() {
     }
@@ -27,7 +30,7 @@ public class FlightGroup {
 
     public String getDescription() {return description;}
 
-    void setDescription(String description) {this.description = description;}
+    public void setDescription(String description) {this.description = description;}
 
     public boolean isDone() {return done;}
 
@@ -35,5 +38,13 @@ public class FlightGroup {
 
     public Set<Flight> getFlights() {return flights;}
 
-    void setFlights(Set<Flight> flights) {this.flights = flights;}
+    public void setFlights(Set<Flight> flights) {this.flights = flights;}
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 }

@@ -9,4 +9,7 @@ public interface FlightGroupRepository {
     Optional<FlightGroup> findById(Integer id);
 
     FlightGroup save(FlightGroup entity);
+
+
+    boolean existsByDoneIsFalseAndUser_Id(Integer userId);
 }
