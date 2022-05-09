@@ -1,8 +1,8 @@
 package pl.wsb.java.flightapp.model.projection;
 
 import pl.wsb.java.flightapp.model.Flight;
+import pl.wsb.java.flightapp.model.FlightGroup;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
 
 public class GroupFlightWriteModel {
@@ -29,7 +29,7 @@ public class GroupFlightWriteModel {
 
     public void setArrivalAirport(String arrivalAirport) {this.arrivalAirport = arrivalAirport;}
 
-    public Flight toFlight(){
-        return new Flight(description,departureTime,departureAirport,arrivalAirport);
+    public Flight toFlight(FlightGroup group){
+        return new Flight(description,departureTime,departureAirport,arrivalAirport, group);
     }
 }

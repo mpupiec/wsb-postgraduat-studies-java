@@ -2,6 +2,7 @@ package pl.wsb.java.flightapp.model;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import java.util.Set;
 
 @Entity
 @Table(name = "user_details")
@@ -16,6 +17,14 @@ public class UserDetails {
     @ManyToOne
     @JoinColumn(name ="user_id")
     private User user;
+
+    public UserDetails() {
+    }
+
+    public UserDetails(String firstName, String lastName) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+    }
 
     public int getId() {
         return id;

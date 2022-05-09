@@ -19,9 +19,13 @@ public class User {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
     private Set<UserDetails> details;
 
+    public User() {
+    }
+
+
     public int getId() {return id;}
 
-    void setId(int id) {this.id = id;}
+    public void setId(int id) {this.id = id;}
 
     public String getLogin() {return login;}
 

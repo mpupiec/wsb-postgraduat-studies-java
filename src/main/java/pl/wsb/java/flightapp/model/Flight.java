@@ -26,14 +26,33 @@ public class Flight {
     private FlightGroup group;
 
 
-    Flight() {}
-        public Flight(String description, LocalDateTime departureTime,
+    public Flight() {}
+//
+//    public Flight(String description1, String description2){
+//        this.description=description1;
+//        this.description=description2;
+//    }
+
+
+    public Flight(String description, LocalDateTime departureTime,
         String departureAirport,String arrivalAirport){
-            this.description = description;
-            this.departureTime=departureTime;
-            this.departureAirport=departureAirport;
-            this.arrivalAirport =arrivalAirport;
+            this(description, departureTime, departureAirport,arrivalAirport, null);
+
+
         }
+
+    public Flight(String description, LocalDateTime departureTime,
+                  String departureAirport,String arrivalAirport, FlightGroup group){
+        this.description = description;
+        this.departureTime= departureTime;
+        this.departureAirport= departureAirport;
+        this.arrivalAirport = arrivalAirport;
+        if (group != null){
+            this.group = group;
+        }
+    }
+
+
 
 
     public int getId() {return id;}

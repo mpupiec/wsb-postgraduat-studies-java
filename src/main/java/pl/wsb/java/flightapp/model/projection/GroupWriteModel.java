@@ -34,7 +34,7 @@ public class GroupWriteModel {
         result.setDescription(description);
         result.setFlights(
                 flights.stream()
-                        .map(GroupFlightWriteModel::toFlight)
+                        .map(source -> source.toFlight(result))
                         .collect(Collectors.toSet())
         );
         return result;
