@@ -78,6 +78,11 @@ public class TestConfiguration {
                 flights.put(key, entity);
                 return flights.get(key);
             }
+
+            @Override
+            public List<Flight> findAllByGroup_Id(Integer groupId) {
+                return List.of();
+            }
         };
     }
 }

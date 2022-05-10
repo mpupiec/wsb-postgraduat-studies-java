@@ -20,4 +20,6 @@ interface SqlFlightRepository extends FlightRepository, JpaRepository<Flight, In
    @Override
    boolean existsByDoneIsFalseAndGroup_Id(Integer groupId);
 
+    @Override
+    List<Flight> findAllByGroup_Id(Integer groupId);
 }

@@ -9,6 +9,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GroupReadModel {
+    private int id;
     private String description;
     /**
      * first LocalDateTime departureTime in queue
@@ -17,6 +18,7 @@ public class GroupReadModel {
     private Set<GroupFlightReadModel> flights;
 
     public GroupReadModel(FlightGroup source) {
+        id = source.getId();
         description = source.getDescription();
         source.getFlights().stream().map(Flight::getDepartureTime)
                 .min(LocalDateTime::compareTo).ifPresent(date->departureTime=date);
@@ -25,6 +27,9 @@ public class GroupReadModel {
                 .collect(Collectors.toSet());
     }
 
+    public void setId(final int id) {this.id = id;}
+
+    public int getId() {return id;}
 
     public String getDescription() {
         return description;
@@ -49,4 +54,6 @@ public class GroupReadModel {
     public void setFlights(Set<GroupFlightReadModel> flights) {
         this.flights = flights;
     }
+
+
 }

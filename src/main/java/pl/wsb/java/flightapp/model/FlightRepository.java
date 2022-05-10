@@ -21,4 +21,6 @@ public interface FlightRepository {
     List<Flight> findByDone(boolean done);
 
     Flight save(Flight entity);
+
+    List<Flight> findAllByGroup_Id(Integer groupId);
 }
