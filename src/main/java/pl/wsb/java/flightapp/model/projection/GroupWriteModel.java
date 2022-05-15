@@ -1,10 +1,8 @@
 package pl.wsb.java.flightapp.model.projection;
 
-import pl.wsb.java.flightapp.model.Flight;
 import pl.wsb.java.flightapp.model.FlightGroup;
+import pl.wsb.java.flightapp.model.User;
 
-import javax.persistence.CascadeType;
-import javax.persistence.OneToMany;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -29,7 +27,7 @@ public class GroupWriteModel {
         this.flights = flights;
     }
 
-    public FlightGroup toGroup() {
+    public FlightGroup toGroup(User user) {
         var result = new FlightGroup();
         result.setDescription(description);
         result.setFlights(
@@ -37,6 +35,7 @@ public class GroupWriteModel {
                         .map(source -> source.toFlight(result))
                         .collect(Collectors.toSet())
         );
+        result.setUser(user);
         return result;
     }
 

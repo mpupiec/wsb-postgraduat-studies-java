@@ -58,7 +58,7 @@ public class FlightGroupController {
 //                repository.findByDone(state)
 //        );
 //    }
-//
+
     @GetMapping("/{id}")
     ResponseEntity<List<Flight>> readAllFlightsFromGroup(@PathVariable int id){
         return ResponseEntity.ok(repository.findAllByGroup_Id(id));

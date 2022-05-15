@@ -6,6 +6,7 @@ import pl.wsb.java.flightapp.model.*;
 import pl.wsb.java.flightapp.model.projection.GroupFlightWriteModel;
 import pl.wsb.java.flightapp.model.projection.GroupReadModel;
 import pl.wsb.java.flightapp.model.projection.GroupWriteModel;
+import pl.wsb.java.flightapp.model.projection.UserWriteModel;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -29,8 +30,8 @@ public class UserService {
         return repository.findAll();
     }
 
-    public User save(final User toSave) {
-        return repository.save(toSave);
+    public User save(final UserWriteModel toSave) {
+        return repository.save(toSave.toProject());
     }
 
     public GroupReadModel createGroup(LocalDateTime departureTime, int userId) {
@@ -55,7 +56,7 @@ public class UserService {
                                     }).collect(Collectors.toSet()
                                     )
                 );
-                    return service.createGroup(targetGroup);
+                    return service.createGroup(targetGroup, user);
                 }).orElseThrow(() -> new IllegalArgumentException("User with given id not found"));
         return result;
     }

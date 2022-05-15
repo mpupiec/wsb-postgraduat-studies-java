@@ -1,6 +1,5 @@
 package pl.wsb.java.flightapp.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -10,7 +9,7 @@ import java.util.Set;
 
 @Configuration
 public class MvcConfiguration implements WebMvcConfigurer {
-    private Set<HandlerInterceptor> interceptors;
+    private final Set<HandlerInterceptor> interceptors;
 
     public MvcConfiguration(final Set<HandlerInterceptor> interceptors) {
         this.interceptors = interceptors;

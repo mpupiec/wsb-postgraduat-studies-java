@@ -8,6 +8,7 @@ import org.springframework.web.context.annotation.RequestScope;
 import pl.wsb.java.flightapp.model.FlightGroup;
 import pl.wsb.java.flightapp.model.FlightGroupRepository;
 import pl.wsb.java.flightapp.model.FlightRepository;
+import pl.wsb.java.flightapp.model.User;
 import pl.wsb.java.flightapp.model.projection.GroupReadModel;
 import pl.wsb.java.flightapp.model.projection.GroupWriteModel;
 
@@ -30,10 +31,12 @@ public class FlightGroupService {
     }
 
     public GroupReadModel createGroup(GroupWriteModel source){
-        FlightGroup result = repository.save(source.toGroup());
+        return createGroup(source, null);
+    }
+    public GroupReadModel createGroup(GroupWriteModel source, User user) {
+        FlightGroup result = repository.save(source.toGroup(user));
         return new GroupReadModel(result);
     }
-
     public List<GroupReadModel> readAll(){
         return repository.findAll().stream()
                 .map(GroupReadModel::new)
@@ -49,4 +52,6 @@ public class FlightGroupService {
         result.setDone(!result.isDone());
         repository.save(result);
     }
+
+
 }

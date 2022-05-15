@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flight app: projects</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+    <!--/*@thymesVar id="#message" type="java.lang.String"*/-->
+    <h1 th:if="${message != null}" th:text="${message}"></h1>
+    <!--/*@thymesVar id="user" type="pl.wsb.java.flightapp.model.projection.UserWriteModel"*/-->
+    <form action="#" method="post" th:action="@{/users}" th:object="${user}">
+        <fieldset>
+            <legend>New user / users</legend>
+            <label>Loggin
+                <input type="text" th:field="*{login}"/>
+            </label>
+            <label>Password
+                <input type="text" th:field="*{pas}"/>
+            </label>
+            <fieldset th:each="detail,detailStat : *{details}">
+                <legend th:text="|User details  ${detailStat.index + 1}|"></legend>
+                <label>First Name
+                    <input type="text" th:field="*{details[__${detailStat.index}__].firstName}" />
+                </label>
+                <label>Last Name
+                    <input type="text" th:field="*{details[__${detailStat.index}__].lastName}" />
+                </label>
+            </fieldset>
+            <div>
+                <button type="submit" name="addUser">+</button>
+            </div>
+        </fieldset>
+        <p>
+            <button type="submit">Add next user</button>
+            <button type="reset">Clear</button>
+        </p>
+    </form>
+
+</main>
+</body>
+</html>
