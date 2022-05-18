@@ -26,8 +26,7 @@ public class UserService {
         this.config = config;
     }
 
-    public List<User> readAll() {
-        return repository.findAll();
+    public List<User> readAll() {return repository.findAll();
     }
 
     public User save(final UserWriteModel toSave) {

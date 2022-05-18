@@ -5,39 +5,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flight app: projects</title>
     <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+    <style>
+        .Bd {
+           border: solid 1px black;
+        }
+
+        .C\(red\){
+            color:red;
+        }
+        .Bdc\(red\){
+            border-color:red !important;
+        }
+        .P\(0\){
+            padding: 0;
+        }
+        .P\(10px\){
+            padding: 10px;
+        }
+    </style>
 </head>
 <body>
 <main>
     <!--/*@thymesVar id="#message" type="java.lang.String"*/-->
     <h1 th:if="${message != null}" th:text="${message}"></h1>
-    <!--/*@thymesVar id="user" type="pl.wsb.java.flightapp.model.projection.UserWriteModel"*/-->
-    <form action="#" method="post" th:action="@{/users}" th:object="${user}">
+    <!--/*@thymesVar id="users" type="java.util.List<pl.wsb.java.flightapp.model.User>"*/-->
+    <dl th:each="user : ${users}" class="Bd P(10px)">
+        <dt th:text="${user.pas}">...</dt>
+        <dd>
+            <ul class="P(0)">
+               <li th:each = "detail: ${user.details}" th:text="|${detail.firstName} ${detail.lastName}|"></li>
+            </ul>
+            <form action="#" method="get" th:action="@{/users/{userId}(userId = ${user.pas})}"></form>
+            <label> Departure Time
+                <input name="departureTime" type="departureTime" th:type="datetime-local" pattern = "[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}">
+            </label>
+            <button type="submit">Add Flights>></button>
+        </dd>
+    </dl>
         <fieldset>
             <legend>New user / users</legend>
+            <!--/*@thymesVar id="user" type="pl.wsb.java.flightapp.model.projection.UserWriteModel"*/-->
+            <form action="#" method="post" th:action="@{/users}" th:object="${user}">
+                <p class="C(red)" th:if="${#fields.hasAnyErrors()}" th:errors="*{all}"></p>
             <label>Loggin
-                <input type="text" th:field="*{login}"/>
+                <input type="text" th:field="*{login}" th:errorclass="'Bdc(red)'"/>
             </label>
             <label>Password
-                <input type="text" th:field="*{pas}"/>
+                <input type="text" th:field="*{pas}" th:errorclass="'Bdc(red)'"/>
             </label>
             <fieldset th:each="detail,detailStat : *{details}">
                 <legend th:text="|User details  ${detailStat.index + 1}|"></legend>
                 <label>First Name
-                    <input type="text" th:field="*{details[__${detailStat.index}__].firstName}" />
+                    <input type="text" th:field="*{details[__${detailStat.index}__].firstName}" th:errorclass="'Bdc(red)'" />
                 </label>
                 <label>Last Name
-                    <input type="text" th:field="*{details[__${detailStat.index}__].lastName}" />
+                    <input type="text" th:field="*{details[__${detailStat.index}__].lastName}" th:errorclass="'Bdc(red)'" />
                 </label>
             </fieldset>
             <div>
                 <button type="submit" name="addUser">+</button>
             </div>
-        </fieldset>
-        <p>
-            <button type="submit">Add next user</button>
-            <button type="reset">Clear</button>
-        </p>
+            <p>
+                <button type="submit">Add next user</button>
+                <button type="reset">Clear</button>
+            </p>
     </form>
+        </fieldset>
 
 </main>
 </body>

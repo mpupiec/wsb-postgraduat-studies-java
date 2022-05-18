@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=devices-width, initial-scale=1.0">
+    <title>Flight App: groups</title>
+    <link rel="stylesheet" href="https://igoradamenko.github.io/awsm.css/css/awsm.min.css">
+</head>
+<body>
+<main>
+    <fieldset>
+        <from>
+            <label>Departure Time
+                <input type="datetime-local" name="departureTime" pattern="[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}"/>
+            </label>
+            <label>Departure Airport
+                <input type="text" name="departureAirport"/>
+            </label>
+            <label>Arrival Airport
+                <input type="text" name="arrivalAirport"/>
+            </label>
+        </from>
+    </fieldset>
+</main>
+<script>
+    (async function() {
+        const main = document.querySelector('main');
+        const params = new URLSearchParams(location.search);
+        const response = params.has('group') ? await fetch(`/groups/${params.get('group')}`) : await fetch(`/flights`);
+        if (response.ok) {
+            const flights = await response.json();
+            const list = document.createElement('ul');
+            flights.forEach(flights => list.appendChild(createFlight(flights)));
+            main.prepend(list);
+        }
+        const from = document.querySelector('from');
+        from.addEventListener('submit', async (event) => {
+            event.preventDefault();
+            const resp = await fetch('/flights', {
+                method: 'post',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    departureTime: form.elements.departureTime.value && form.elements.departureTime.value + ':00.000',
+                    departureAirport: form.elements.departureAirport.value,
+                    arrivalAirport: form.elements.arrivalAirport.value,
+                })
+            });
+            if (resp.ok) {
+                const flightFromServer = await resp.json();
+                document.querySelector('ul').appendChild(createFlight(flightFromServer));
+                form.reset();
+            }
+        });
+
+        function createFlight({id, description, done, departureTime, departureAirport, arrivalAirport}) {
+            const result = document.createElement('li');
+            result.innerHTML = `
+            <label>
+                <input type = "checkbox" ${done ? ' checked' : ' '}/>
+                ${description}
+                <small>${departureTime && departureTime.replace('T', ' ')} </small>
+            </>label>
+            `;
+        }
+
+        result.querySelector('input').addEventListener('click', async (e) => {
+            const response = await fetch(`/flights/${id}`, {method: 'PATCH'});
+            if (!response.ok) {
+                e.target.checked = !e.target.checked;
+            }
+        });
+        return result;
+    })();
+
+</script>
+</body>
+</html>
+
